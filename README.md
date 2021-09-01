@@ -3,7 +3,7 @@
 
 ### Logo:
 
-![alt text](https://github.com/akiyamoo/tasks/blob/main/image/logo.png "Eldar Altymyshov")
+![alt text](image/logo.png "Eldar Altymyshov")
 
 ```java
 public class Main{
