@@ -5,25 +5,25 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         int x;
+        boolean f = true;
         for (int i = 0; i < n; i++){
             x = scanner.nextInt();
-            if(checkPerfectNumber(x))
-                System.out.println(x + " eh perfeito");
-            else
-                System.out.println(x + " nao eh perfeito");
+            f = true;
+            if (x == 1) {
+                System.out.println(x + " eh primo");
+                continue;
+            }
+            int sqrt = (int) Math.sqrt(x);
+            for (int j = 2; j < sqrt + 1; j++){
+                if (x % j == 0){
+                    System.out.println(x + " nao eh primo");
+                    f = false;
+                    break;
+                }
+            }
+            if (f){
+                System.out.println(x + " eh primo");
+            }
         }
-    }
-
-    public static boolean checkPerfectNumber(int n){
-        int x = 1;
-        int y = 2;
-        if (n == 1) return false;
-        while (n % y == 0){
-                x += n / y + y;
-                y *= 2;
-        }
-        if (x == n) return true;
-
-        return false;
     }
 }
