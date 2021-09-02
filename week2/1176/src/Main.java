@@ -1,29 +1,22 @@
 import java.util.Scanner;
 
 public class Main {
+    static long arr[] = new long[61];
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int x;
-        boolean f = true;
-        for (int i = 0; i < n; i++){
-            x = scanner.nextInt();
-            f = true;
-            if (x == 1) {
-                System.out.println(x + " eh primo");
-                continue;
-            }
-            int sqrt = (int) Math.sqrt(x);
-            for (int j = 2; j < sqrt + 1; j++){
-                if (x % j == 0){
-                    System.out.println(x + " nao eh primo");
-                    f = false;
-                    break;
-                }
-            }
-            if (f){
-                System.out.println(x + " eh primo");
-            }
+        int t = scanner.nextInt();
+        int n;
+        for (int i = 0; i < t; i++){
+            n = scanner.nextInt();
+            System.out.println("Fib(" + n + ") = " + arr[n]);
+        }
+    }
+
+    static {
+        arr[0] = 0;
+        arr[1] = 1;
+        for (int i = 2; i < arr.length; i++){
+            arr[i] = arr[i-1] + arr[i-2];
         }
     }
 }
