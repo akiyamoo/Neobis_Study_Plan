@@ -13,7 +13,7 @@ public class Main{
             for (int j = 0; j < 12; j++) {
                 a[i][j] = in.nextDouble();
 
-             }
+            }
             sum += a[i][n];
         }
         if (с == 'M') {
