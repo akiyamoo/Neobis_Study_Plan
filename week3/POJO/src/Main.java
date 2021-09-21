@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 
-public class ShopCars {
-
+public class Main {
     private static CarCRUD carCRUD = new CarCRUD(); // Create static object for CarCRUD class (Because we only work with 1 storage)
     private static Scanner input = new Scanner(System.in); // Create static object for work in the entire class
 

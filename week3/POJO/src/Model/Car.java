@@ -5,7 +5,7 @@ import java.util.Random;
 public class Car { // Object Car
 
     private String nameMark, nameModel, carTrimLevel; // attribute of car
-    private Integer serialID, carWarranty, price, id; // attribute of car
+    private Integer serialID, carWarranty, price, id, year; // attribute of car
     private static int idDefault = 1; // id
     private boolean sellCar; // check sell car
 
