@@ -54,3 +54,7 @@ ToyotaDelete 20
 Toyota 810000
 -------------------------------------------------------------------------------------
 Connection accepted.
+
+
+26.09.2021
+1. Connected and remake pojo classes to the database
