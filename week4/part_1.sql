@@ -1,17 +1,14 @@
 create table cars (
-	Id INT auto_increment unique,
-	SerialID INT unique,
-	Warranty INT,
-	Price INT,
-	NameMark VARCHAR(20),
-	NameModel VARCHAR(20),
-	TrimLevel VARCHAR(30)
+	id INT AUTO_INCREMENT unique,
+	serial_id INT unique,
+    name_mark VARCHAR(20),
+    name_model VARCHAR(20),
+	car_year YEAR
 );
 
-create table ShopCars (
-	Id INT auto_increment unique,
-	IdCar INT unique,
-	Name_Seller VARCHAR(20),
-	Name_Buyer VARCHAR(20),
-    SalePrice INT
+create table shop_cars (
+	id INT AUTO_INCREMENT unique,
+	id_car INT unique,
+	name_seller VARCHAR(20),
+    price INT
 );
