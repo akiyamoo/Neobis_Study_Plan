@@ -1,36 +1,38 @@
 package com.pojo;
 
-import java.sql.*;
+import com.pojo.Model.Car;
+import com.pojo.Model.CarCRUD;
+import com.pojo.Model.ShopCar;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class Main {
+    private static CarCRUD crud;
+    private static List<Car> carList;
+    private static List<ShopCar> shopCarList;
+
     public static void main(String[] args) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/neobis";
-        String username = "root";
-        String password = "root"; // please change your password
+        crud = new CarCRUD();
 
-        Connection connection = DriverManager.getConnection(url, username, password);
-        Statement request = connection.createStatement();
+        //crud.addCar("Toyota", "Camry V40", 1, 2008);
+        //.addCar("Toyota", "Camry V70", 2, 2019); // test
+        //crud.addCar("Toyota", "Camry V30", 3, 2004);
 
-        request.executeUpdate("INSERT INTO cars VALUES(239 ,2336, 1, 800000, 'Toyota', 'Mark 2', 'Test JDBC')");
+        //crud.addShopCar("Jonny", 40000, 1);
+        //crud.addShopCar("Jonny", 70000, 2); // test
+        //crud.addShopCar("Jonny", 100000, 3);
 
-        request.executeUpdate("INSERT INTO cars VALUES(1322 ,2023, 1, 20000, 'ToyotaDelete', 'Mark 2', 'Test JDBC')");
+        carList = crud.getCarList();
+        shopCarList = crud.getShopCarList();
 
-        ResultSet resultSet = request.executeQuery("SELECT * FROM cars");
-
-        while (resultSet.next()) {
-            System.out.println(resultSet.getString("NameMark") + " " + resultSet.getString("Price"));
+        for (Car car : carList){
+            System.out.println(car.getId() + " " + car.getSerialID() + " " + car.getNameMark() + " " + car.getNameMark() + " " + car.getCarYear());
         }
 
-        System.out.println();
-
-        request.executeUpdate("UPDATE cars SET Price = Price + 10000 WHERE NameMark = 'Toyota';");
-
-        request.executeUpdate("DELETE FROM cars WHERE NameMark = 'ToyotaDelete'");
-
-        resultSet = request.executeQuery("SELECT * FROM cars");
-        while (resultSet.next()) {
-            System.out.println(resultSet.getString("NameMark") + " " + resultSet.getString("Price"));
+        for (ShopCar shopCar : shopCarList){
+            System.out.println(shopCar.getId() + " " + shopCar.getIdCar() + " " + shopCar.getPrice() + " " + shopCar.getNameSeller());
         }
+
     }
-
 }
