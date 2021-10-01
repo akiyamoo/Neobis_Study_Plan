@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             String username = "root";
-            String password = "Eldar2002";
+            String password = "root";
             String url = "jdbc:mysql://localhost:3306/test";
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
