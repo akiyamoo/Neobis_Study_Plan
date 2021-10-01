@@ -1,38 +1,58 @@
 package com.pojo;
 
-import com.pojo.Model.Car;
-import com.pojo.Model.CarCRUD;
-import com.pojo.Model.ShopCar;
-
-import java.sql.SQLException;
-import java.util.List;
+import java.sql.*;
 
 public class Main {
-    private static CarCRUD crud;
-    private static List<Car> carList;
-    private static List<ShopCar> shopCarList;
 
-    public static void main(String[] args) throws SQLException {
-        crud = new CarCRUD();
+    public static void main(String[] args) {
+        try {
+            String username = "root";
+            String password = "Eldar2002";
+            String url = "jdbc:mysql://localhost:3306/test";
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
 
-        //crud.addCar("Toyota", "Camry V40", 1, 2008);
-        //.addCar("Toyota", "Camry V70", 2, 2019); // test
-        //crud.addCar("Toyota", "Camry V30", 3, 2004);
+            statement.executeUpdate(
+                    "INSERT customers(customer_id, customer_first_name, customer_last_name) " +
+                            "VALUES (1, 'Eldar', 'Altymyshov')"
+            );
 
-        //crud.addShopCar("Jonny", 40000, 1);
-        //crud.addShopCar("Jonny", 70000, 2); // test
-        //crud.addShopCar("Jonny", 100000, 3);
+            statement.executeUpdate(
+                    "INSERT customers(customer_id, customer_first_name, customer_last_name) " +
+                            "VALUES (2, 'Natasha', 'Sila')"
+            );
 
-        carList = crud.getCarList();
-        shopCarList = crud.getShopCarList();
+            System.out.println("Insert:");
 
-        for (Car car : carList){
-            System.out.println(car.getId() + " " + car.getSerialID() + " " + car.getNameMark() + " " + car.getNameMark() + " " + car.getCarYear());
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM customers");
+
+            while (resultSet.next()){
+                System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
+            }
+
+            statement.executeUpdate("UPDATE customers SET customer_last_name = 'Grigorievna' WHERE customer_last_name = 'Sila'");
+
+            resultSet = statement.executeQuery("SELECT * FROM customers");
+
+            System.out.println("Update:");
+
+            while (resultSet.next()){
+                System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
+            }
+
+            statement.executeUpdate("DELETE FROM customers WHERE customer_id = 2");
+
+            resultSet = statement.executeQuery("SELECT * FROM customers");
+
+            System.out.println("Delete:");
+
+            while (resultSet.next()){
+                System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
+            }
+
         }
-
-        for (ShopCar shopCar : shopCarList){
-            System.out.println(shopCar.getId() + " " + shopCar.getIdCar() + " " + shopCar.getPrice() + " " + shopCar.getNameSeller());
+        catch (SQLException e) {
+            e.printStackTrace();
         }
-
     }
 }
