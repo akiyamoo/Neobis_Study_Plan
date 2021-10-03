@@ -9,13 +9,14 @@ public class Main {
     public static void main(String[] args) throws SQLException{
 
         try {
+            // Try connect to database
             connection = DriverManager.getConnection(
                     ConnectJDBC.URL.getName(),
                     ConnectJDBC.USERNAME.getName(),
                     ConnectJDBC.PASSWORD.getName()
             );
         }
-        catch (SQLException e)
+        catch (SQLException e) // If don't connect to database
         {
             System.out.println("Error connect to database.");
             System.out.println(e);
@@ -64,18 +65,18 @@ public class Main {
         PreparedStatement statementInsert;
 
         try {
-
+            //INSERT
             statementInsert = connection.prepareCall("" +
                     "INSERT customers(customer_first_name, customer_last_name) " +
                     "VALUES (?, ?)");
 
             //statementInsert.setInt(1, id);
-            statementInsert.setString(1, firstName);
-            statementInsert.setString(2, lastName);
+            statementInsert.setString(1, firstName); // Set value of customer_first_name
+            statementInsert.setString(2, lastName); // Set value of customer_last_name
 
-            statementInsert.executeUpdate();
+            statementInsert.executeUpdate(); // request
 
-            statementInsert.close();
+            statementInsert.close(); // close statement connection to database
 
             System.out.println("Complete method - insert()");
 
@@ -121,18 +122,18 @@ public class Main {
         PreparedStatement statementUpdate;
 
         try {
-
+            //UPDATE
             statementUpdate = connection.prepareCall("" +
                     "UPDATE customers " +
                     "SET customer_first_name = ?" +
                     "WHERE customer_first_name ?");
 
-            statementUpdate.setString(2, oldFirstName);
-            statementUpdate.setString(1, newFirstName);
+            statementUpdate.setString(2, oldFirstName); // Set value of - WHERE customer_first_name ?
+            statementUpdate.setString(1, newFirstName); // Set value of - SET customer_first_name = ?
 
-            statementUpdate.executeUpdate();
+            statementUpdate.executeUpdate(); // request
 
-            statementUpdate.close();
+            statementUpdate.close(); // close statement connection to database
 
             System.out.println("Complete method - updateFirstName()");
 
@@ -154,14 +155,12 @@ public class Main {
                     "SET customer_last_name = ?" +
                     "WHERE customer_last_name ?");
 
-            statementUpdate.setString(2, oldLastName);
-            statementUpdate.setString(1, newLastName);
+            statementUpdate.setString(2, oldLastName); // Set value of - WHERE customer_last_name ?
+            statementUpdate.setString(1, newLastName); // Set value of - SET customer_last_name = ?
 
-            statementUpdate.executeUpdate();
+            statementUpdate.executeUpdate(); // request
 
-            //statementUpdate.executeUpdate("UPDATE customers SET customer_last_name = 'Grigorievna' WHERE customer_last_name = 'Sila'");
-
-            statementUpdate.close();
+            statementUpdate.close(); // close statement connection to database
 
             System.out.println("Complete method - updateLastName()");
 
@@ -177,16 +176,16 @@ public class Main {
         PreparedStatement statementDelete;
 
         try {
-
+            //DELETE
             statementDelete = connection.prepareCall("" +
                     "DELETE FROM customers " +
                     "WHERE customer_id = ?");
 
-            statementDelete.setInt(1, id);
+            statementDelete.setInt(1, id); // Set value of - WHERE customer_id = ?
 
-            statementDelete.executeUpdate();
+            statementDelete.executeUpdate(); // request
 
-            statementDelete.close();
+            statementDelete.close(); // close statement connection to database
 
             System.out.println("Complete method - deleteById(). Delete id = " + id);
 
