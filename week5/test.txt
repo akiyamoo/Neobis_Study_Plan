@@ -16,9 +16,6 @@
 -------------------------------------------------------------------------------------
 public class Main {
 
-    private static final String username = "root"; // USERNAME
-    private static final String password = "root"; // PASSWORD
-    private static final String url = "jdbc:mysql://localhost:3306/test"; // URL database
     private static Connection connection;
 
     public static void main(String[] args) throws SQLException{
@@ -35,6 +32,21 @@ public class Main {
     }
 
 }
+
+enum ConnectJDBC{
+    USERNAME("root"), PASSWORD("root"), URL("jdbc:mysql://localhost:3306/test");
+
+    private String name;
+
+    ConnectJDBC(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
+}
+
 -------------------------------------------------------------------------------------
 
 5. Insert request:
