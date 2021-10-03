@@ -15,6 +15,43 @@ public class Main {
                     ConnectJDBC.USERNAME.getName(),
                     ConnectJDBC.PASSWORD.getName()
             );
+
+            System.out.println("INSERT:");
+            insert("Vanya", "Petrashov");
+            insert("Igor", "Seleznov");
+            insert("Elena", "Akoeva");
+            //example
+            System.out.println();
+
+            System.out.println("SELECT:");
+            selectAll();
+            System.out.println();
+
+            System.out.println("UPDATE first_name:");
+            updateFirstName("Vanya", "Sanya");
+            System.out.println();
+
+            System.out.println("SELECT:");
+            selectAll();
+            System.out.println();
+
+            System.out.println("UPDATE last_name:");
+            updateLastName("Seleznov", "Borodino");
+            System.out.println();
+
+            System.out.println("SELECT:");
+            selectAll();
+            System.out.println();
+
+            System.out.println("DELETE id:");
+            deleteById(1);
+            deleteById(2);
+            System.out.println();
+
+            System.out.println("SELECT:");
+            selectAll();
+
+            connection.close();
         }
         catch (SQLException e) // If don't connect to database
         {
@@ -22,41 +59,6 @@ public class Main {
             System.out.println(e);
             return;
         }
-
-        System.out.println("INSERT:");
-        insert("Vanya", "Petrashov");
-        insert("Igor", "Seleznov");
-        insert("Elena", "Akoeva");
-        //example
-        System.out.println();
-
-        System.out.println("SELECT:");
-        selectAll();
-        System.out.println();
-
-        System.out.println("UPDATE first_name:");
-        updateFirstName("Vanya", "Sanya");
-        System.out.println();
-
-        System.out.println("SELECT:");
-        selectAll();
-        System.out.println();
-
-        System.out.println("UPDATE last_name:");
-        updateLastName("Seleznov", "Borodino");
-        System.out.println();
-
-        System.out.println("SELECT:");
-        selectAll();
-        System.out.println();
-
-        System.out.println("DELETE id:");
-        deleteById(1);
-        deleteById(2);
-        System.out.println();
-
-        System.out.println("SELECT:");
-        selectAll();
 
     }
 
