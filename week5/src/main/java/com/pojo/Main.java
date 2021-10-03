@@ -223,8 +223,6 @@ public class Main {
 
             statementUpdate.executeUpdate(); // request
 
-            statementUpdate.close(); // close statement connection to database
-
             System.out.println("Complete method - updateLastName()");
 
         }
