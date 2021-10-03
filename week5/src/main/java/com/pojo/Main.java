@@ -4,9 +4,6 @@ import java.sql.*;
 
 public class Main {
 
-    private static final String username = "root"; // USERNAME
-    private static final String password = "root"; // PASSWORD
-    private static final String url = "jdbc:mysql://localhost:3306/test"; // URL database
     private static Connection connection;
 
     public static void main(String[] args) throws SQLException{
