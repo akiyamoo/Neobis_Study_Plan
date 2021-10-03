@@ -2,11 +2,11 @@ package Model;
 
 public class Brand {
 
-    int id;
+    private int id;
 
-    String name;
+    private String name;
 
-    String description;
+    private String description;
 
     public Brand(){}
 

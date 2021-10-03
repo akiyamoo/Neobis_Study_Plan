@@ -6,11 +6,11 @@ import java.util.Date;
 
 public class PriceChange {
 
-    int idProduct;
+    private int idProduct;
 
-    int price;
+    private int price;
 
-    Date date;
+    private Date date;
 
     public PriceChange(){}
 

@@ -2,9 +2,9 @@ package Model;
 
 public class StorageStore {
 
-    int idProduct;
+    private int idProduct;
 
-    int count;
+    private int count;
 
     public StorageStore() {
     }

@@ -2,11 +2,11 @@ package Model;
 
 public class Customer {
 
-    int id;
+    private int id;
 
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
 /*    String login;
     example

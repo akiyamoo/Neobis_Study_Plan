@@ -2,16 +2,16 @@ package Model;
 
 public class Product {
 
-    int idBrand;
+    private int idBrand;
 
-    int id;
-    String name;
+    private int id;
+    private String name;
 
-    int idCategory;
+    private int idCategory;
 
-    String specification;
+    private String specification;
 
-    String description;
+    private String description;
 
     public Product(){}
 

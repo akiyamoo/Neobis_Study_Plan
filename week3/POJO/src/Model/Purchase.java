@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class Purchase {
 
-    int id;
+    private int id;
 
-    int idCustomer;
+    private int idCustomer;
 
-    int idProduct;
+    private int idProduct;
 
-    int countProduct;
+    private int countProduct;
 
-    Date date;
+    private Date date;
 
     public Purchase() {
     }
