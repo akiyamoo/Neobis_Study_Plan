@@ -8,14 +8,6 @@ public class Main {
 
     public static void main(String[] args) throws SQLException{
 
-        try {
-            // Try connect to database
-            connection = DriverManager.getConnection(
-                    ConnectJDBC.URL.getName(),
-                    ConnectJDBC.USERNAME.getName(),
-                    ConnectJDBC.PASSWORD.getName()
-            );
-
             System.out.println("INSERT:");
             insert("Vanya", "Petrashov");
             insert("Igor", "Seleznov");
@@ -51,26 +43,23 @@ public class Main {
             System.out.println("SELECT:");
             selectAll();
 
-            connection.close();
-        }
-        catch (SQLException e) // If don't connect to database
-        {
-            System.out.println("Error connect to database.");
-            System.out.println(e);
-            return;
-        }
-
     }
 
     public static void insert(String firstName, String lastName) {
 
-        PreparedStatement statementInsert;
+        PreparedStatement statementInsert = null;
+        connection = null;
 
         try {
-            //INSERT
+            connection = DriverManager.getConnection(
+                    ConnectJDBC.URL.getName(),
+                    ConnectJDBC.USERNAME.getName(),
+                    ConnectJDBC.PASSWORD.getName()
+            );
             statementInsert = connection.prepareCall("" +
                     "INSERT customers(customer_first_name, customer_last_name) " +
-                    "VALUES (?, ?)");
+                    "VALUES (?, ?)"
+            );
 
             //statementInsert.setInt(1, id);
             statementInsert.setString(1, firstName); // Set value of customer_first_name
@@ -78,27 +67,50 @@ public class Main {
 
             statementInsert.executeUpdate(); // request
 
-            statementInsert.close(); // close statement connection to database
-
             System.out.println("Complete method - insert()");
 
         }
         catch (SQLException e){
             System.out.println("Error - method insert(). Error: " + e);
         }
+        finally {
+
+            try {
+                if (statementInsert != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            try {
+                if (connection != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }
 
     }
 
     public static void selectAll(){
 
-        Statement statementSelect;
-        ResultSet resultSet;
+        Statement statementSelect = null;
+        connection = null;
 
         try {
+            connection = DriverManager.getConnection(
+                    ConnectJDBC.URL.getName(),
+                    ConnectJDBC.USERNAME.getName(),
+                    ConnectJDBC.PASSWORD.getName()
+            );
+
             statementSelect = connection.createStatement();
             // create statement connection to database
 
-            resultSet = statementSelect.executeQuery("SELECT * FROM customers"); // getting result from the statement
+            ResultSet resultSet = statementSelect.executeQuery("SELECT * FROM customers"); // getting result from the statement
 
             while (resultSet.next()){
                 String id = resultSet.getString("customer_id");
@@ -107,8 +119,7 @@ public class Main {
                 System.out.println(id + " " + firstName + " " + lastName);
             }
 
-            statementSelect.close(); // close statement connection to database
-            resultSet.close(); // close result thread
+            resultSet.close();
 
             System.out.println("Complete method - selectAll()");
 
@@ -116,26 +127,50 @@ public class Main {
         catch (SQLException e){
             System.out.println("Error - method selectAll(). Error: " + e);
         }
+        finally {
+            try {
+                if (statementSelect != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            try {
+                if (connection != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
 
     }
 
     public static void updateFirstName(String oldFirstName,String newFirstName) {
 
-        PreparedStatement statementUpdate;
+        PreparedStatement statementUpdate = null;
+        connection = null;
 
         try {
+
+            connection = DriverManager.getConnection(
+                    ConnectJDBC.URL.getName(),
+                    ConnectJDBC.USERNAME.getName(),
+                    ConnectJDBC.PASSWORD.getName()
+            );
+
             //UPDATE
             statementUpdate = connection.prepareCall("" +
                     "UPDATE customers " +
                     "SET customer_first_name = ?" +
-                    "WHERE customer_first_name ?");
+                    "WHERE customer_first_name ?"
+            );
 
             statementUpdate.setString(2, oldFirstName); // Set value of - WHERE customer_first_name ?
             statementUpdate.setString(1, newFirstName); // Set value of - SET customer_first_name = ?
 
             statementUpdate.executeUpdate(); // request
-
-            statementUpdate.close(); // close statement connection to database
 
             System.out.println("Complete method - updateFirstName()");
 
@@ -143,14 +178,40 @@ public class Main {
         catch (SQLException e){
             System.out.println("Error - method updateFirstName(). Error: " + e);
         }
+        finally {
+
+            try {
+                if (statementUpdate != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            try {
+                if (connection != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }
 
     }
 
     public static void updateLastName(String oldLastName,String newLastName) {
 
-        PreparedStatement statementUpdate;
+        PreparedStatement statementUpdate = null;
+        connection = null;
 
         try {
+
+            connection = DriverManager.getConnection(
+                    ConnectJDBC.URL.getName(),
+                    ConnectJDBC.USERNAME.getName(),
+                    ConnectJDBC.PASSWORD.getName()
+            );
 
             statementUpdate = connection.prepareCall("" +
                     "UPDATE customers " +
@@ -170,24 +231,50 @@ public class Main {
         catch (SQLException e){
             System.out.println("Error - method updateLastName(). Error: " + e);
         }
+        finally {
+
+            try {
+                if (statementUpdate != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            try {
+                if (connection != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }
 
     }
 
     public static void deleteById(int id) {
 
-        PreparedStatement statementDelete;
+        PreparedStatement statementDelete = null;
+        connection = null;
 
         try {
+
+            connection = DriverManager.getConnection(
+                    ConnectJDBC.URL.getName(),
+                    ConnectJDBC.USERNAME.getName(),
+                    ConnectJDBC.PASSWORD.getName()
+            );
+
             //DELETE
             statementDelete = connection.prepareCall("" +
                     "DELETE FROM customers " +
-                    "WHERE customer_id = ?");
+                    "WHERE customer_id = ?"
+            );
 
             statementDelete.setInt(1, id); // Set value of - WHERE customer_id = ?
 
             statementDelete.executeUpdate(); // request
-
-            statementDelete.close(); // close statement connection to database
 
             System.out.println("Complete method - deleteById(). Delete id = " + id);
 
@@ -195,8 +282,41 @@ public class Main {
         catch (SQLException e){
             System.out.println("Error - method deleteById(). Error: " + e);
         }
+        finally {
+
+            try {
+                if (statementDelete != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            try {
+                if (connection != null)
+                    connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }
 
     }
+
+/*    public static Connection getConnection(){
+        try {
+            return DriverManager.getConnection(
+                    ConnectJDBC.URL.getName(),
+                    ConnectJDBC.USERNAME.getName(),
+                    ConnectJDBC.PASSWORD.getName()
+            );
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }*/
 
 }
 
