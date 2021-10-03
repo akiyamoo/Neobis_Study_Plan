@@ -12,7 +12,11 @@ public class Main {
     public static void main(String[] args) throws SQLException{
 
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(
+                    ConnectJDBC.URL.getName(),
+                    ConnectJDBC.USERNAME.getName(),
+                    ConnectJDBC.PASSWORD.getName()
+            );
         }
         catch (SQLException e)
         {
@@ -196,4 +200,18 @@ public class Main {
 
     }
 
+}
+
+enum ConnectJDBC{
+    USERNAME("root"), PASSWORD("root"), URL("jdbc:mysql://localhost:3306/test");
+
+    private String name;
+
+    ConnectJDBC(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
 }
