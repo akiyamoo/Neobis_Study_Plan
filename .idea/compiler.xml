@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="helloworld" target="8" />
       <module name="week5" target="8" />
     </bytecodeTargetLevel>
   </component>
