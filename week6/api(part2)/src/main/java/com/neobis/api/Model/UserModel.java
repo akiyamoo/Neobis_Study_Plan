@@ -1,6 +1,4 @@
-package com.tasks.api.Model;
-
-import com.tasks.api.Entity.User;
+package com.neobis.api.Model;
 
 //@Getter
 public class UserModel {

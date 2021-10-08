@@ -1,4 +1,4 @@
-package com.tasks.api.Exception;
+package com.neobis.api.Exception;
 
 import org.springframework.http.HttpStatus;
 

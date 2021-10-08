@@ -1,4 +1,4 @@
-package com.tasks.api.Model;
+package com.neobis.api.Model;
 
 public class ExceptionModel {
 }

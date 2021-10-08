@@ -1,4 +1,4 @@
-package com.tasks.api.Entity;
+package com.neobis.api.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

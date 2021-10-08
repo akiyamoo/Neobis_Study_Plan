@@ -1,10 +1,9 @@
-package com.tasks.api.Service;
+package com.neobis.api.Service;
 
-import com.tasks.api.Entity.User;
-import com.tasks.api.Exception.UserNotFoundException;
-import com.tasks.api.Model.UserModel;
-import com.tasks.api.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.neobis.api.Entity.User;
+import com.neobis.api.Exception.UserNotFoundException;
+import com.neobis.api.Model.UserModel;
+import com.neobis.api.Repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

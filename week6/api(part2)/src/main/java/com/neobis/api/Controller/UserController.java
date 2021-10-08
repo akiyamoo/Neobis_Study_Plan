@@ -1,10 +1,10 @@
-package com.tasks.api.Controller;
+package com.neobis.api.Controller;
 
 
-import com.tasks.api.Entity.User;
-import com.tasks.api.Exception.UserNotFoundException;
-import com.tasks.api.Model.UserModel;
-import com.tasks.api.Service.UserService;
+import com.neobis.api.Entity.User;
+import com.neobis.api.Exception.UserNotFoundException;
+import com.neobis.api.Model.UserModel;
+import com.neobis.api.Service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
