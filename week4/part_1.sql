@@ -19,11 +19,13 @@ CREATE TABLE IF NOT EXISTS brands
     brand_description TEXT
 );
 
-CREATE TABLE IF NOT EXISTS customers
+CREATE TABLE IF NOT EXISTS users
 (
-    customer_id INT AUTO_INCREMENT UNIQUE NOT NULL,
-    customer_first_name TEXT NOT NULL,
-    customer_last_name TEXT NOT NULL
+    user_id INT AUTO_INCREMENT UNIQUE NOT NULL,
+    user_first_name TEXT NOT NULL,
+    user_last_name TEXT NOT NULL,
+    email VARCHAR(20) UNIQUE NOT NULL,
+    password VARCHAR(16) NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS price_change

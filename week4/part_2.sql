@@ -5,7 +5,7 @@ ALTER TABLE brands
     ADD PRIMARY KEY(brand_id);
 
 ALTER TABLE customers
-    ADD PRIMARY KEY(customer_id);
+    ADD PRIMARY KEY(user_id);
 
 ALTER TABLE price_change
     ADD FOREIGN KEY(product_id) REFERENCES products(product_id);
@@ -17,7 +17,7 @@ ALTER TABLE products
 
 ALTER TABLE purchases
     ADD PRIMARY KEY(purchase_id),
-    ADD FOREIGN KEY(customer_id) REFERENCES customers(customer_id),
+    ADD FOREIGN KEY(user_id) REFERENCES customers(user_id),
     ADD FOREIGN KEY(product_id) REFERENCES products(product_id);
 
 ALTER TABLE storage_store
