@@ -1,0 +1,4 @@
+The vulnerabilities were in the users table.
+Passwords, username, email and other unnecessary information were displayed.
+At the moment, I have corrected it by deleting unnecessary information.
+I will also revise other tables in the future, but at the moment I think everything is fine.
