@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS roles
 (
-    role_id INT AUTO_INCREMENT UNIQUE NOT NULL,
+    role_id INT AUTO_INCREMENT UNIQUE NOT NULL PRIMARY KEY,
     role_name VARCHAR(255) NOT NULL
 );
 
@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS user_roles
     FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
 
-INSERT IGNORE roles(role_id, role_name)
+INSERT roles(role_id, role_name)
 VALUES(1, 'ROLE_USER');
 
-INSERT IGNORE roles(role_id, role_name)
+INSERT roles(role_id, role_name)
 VALUES(2, 'ROLE_ADMIN');
