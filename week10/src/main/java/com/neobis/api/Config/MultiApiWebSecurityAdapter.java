@@ -64,7 +64,7 @@ public class MultiApiWebSecurityAdapter {
 
                     .antMatchers("/api/user/**").hasRole("USER")
 
-                    .antMatchers("/api/auth").permitAll()
+                    .antMatchers("/api/auth", "/api/registration").permitAll()
 
                     .anyRequest().authenticated()
                     .and()

@@ -1,6 +1,7 @@
 package com.neobis.api.Config.JWT;
 
 import com.neobis.api.Entity.User;
+import com.neobis.api.Exception.UserUnauthorizedException;
 import com.neobis.api.Service.Impl.UserServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,24 +31,38 @@ public class JwtFilter extends GenericFilterBean {
     private UserServiceImpl userService;
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        logger.info("do filter...");
+    public void doFilter(
+            ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain
+    ) throws IOException, ServletException {
+        //logger.info("do filter...");
+
         String token = getTokenFromRequest((HttpServletRequest) servletRequest);
-        if (token != null && jwtProvider.validateToken(token)) {
-            String username = jwtProvider.getLoginFromToken(token);
-            User user = userService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    user, null, user.getAuthorities()
-            );
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+        if (token != null) {
+            String username = jwtProvider.extractUsername(token);
+            User user = null;
+
+            if (username != null) {
+                user = userService.loadUserByUsername(username);
+            }
+
+            if (user != null && jwtProvider.validateToken(token, user)) {
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        user, null, user.getAuthorities()
+                );
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
         }
+
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
-        String bearer = request.getHeader(AUTHORIZATION);
-        if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
-            return bearer.substring(7);
+        if (request != null) {
+            String bearer = request.getHeader(AUTHORIZATION);
+            if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
+                return bearer.substring(7);
+            }
         }
         return null;
     }

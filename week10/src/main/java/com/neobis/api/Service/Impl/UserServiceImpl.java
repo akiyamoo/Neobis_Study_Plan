@@ -1,8 +1,10 @@
 package com.neobis.api.Service.Impl;
 
+import com.neobis.api.Config.JWT.JwtProvider;
 import com.neobis.api.Entity.Role;
 import com.neobis.api.Entity.User;
 import com.neobis.api.Exception.NotFoundException;
+import com.neobis.api.Exception.UserUnauthorizedException;
 import com.neobis.api.Model.UserAuthModel;
 import com.neobis.api.Model.UserModel;
 import com.neobis.api.Model.UserRegistrationModel;
@@ -21,21 +23,28 @@ import java.util.List;
 @Service("DetailsServices")
 public class UserServiceImpl implements MyUserDetailsService {
 
+    @Autowired
     private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private BCryptPasswordEncoder passwordEncoder;
-
 
     @Autowired
-    public void setDependencies(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtProvider jwtProvider;
+
+    public String getUserAuthenticationToken(UserAuthModel userAuthModel) {
+        UserAuthModel userEntity = findByUsernameAndPassword(userAuthModel.getUsername(), userAuthModel.getPassword());
+        return jwtProvider.generateToken(userEntity.getUsername());
     }
 
-    public UserAuthModel findByLogin(String login) {
+    public UserAuthModel findByUsername(String login) {
         User user = userRepository.findByUsername(login);
-
+        if (user == null) {
+            throw new UserUnauthorizedException("Invalid username or password");
+        }
         UserAuthModel userModel = new UserAuthModel();
         userModel.setUsername(user.getUsername());
         userModel.setPassword(user.getPassword());
@@ -43,8 +52,8 @@ public class UserServiceImpl implements MyUserDetailsService {
         return userModel;
     }
 
-    public UserAuthModel findByLoginAndPassword(String login, String password) {
-        UserAuthModel userEntity = findByLogin(login);
+    public UserAuthModel findByUsernameAndPassword(String login, String password) {
+        UserAuthModel userEntity = findByUsername(login);
         if (userEntity != null) {
             if (passwordEncoder.matches(password, userEntity.getPassword())) {
                 return userEntity;
@@ -54,7 +63,7 @@ public class UserServiceImpl implements MyUserDetailsService {
     }
 
     @Override
-    public UserRegistrationModel createUser(UserRegistrationModel userRegistration) {
+    public void createUser(UserRegistrationModel userRegistration) {
         User user = userRepository.findByUsername(userRegistration.getUsername());
 
         if (user != null) {
@@ -63,8 +72,6 @@ public class UserServiceImpl implements MyUserDetailsService {
 
         user = new User();
 
-        System.out.println(userRegistration.getUsername());
-        System.out.println(userRegistration.getPassword());
         user.setUsername(userRegistration.getUsername());
         user.setPassword(passwordEncoder.encode(userRegistration.getPassword()));
 
@@ -73,7 +80,6 @@ public class UserServiceImpl implements MyUserDetailsService {
 
         userRepository.save(user);
 
-        return userRegistration;
     }
 
     @Override

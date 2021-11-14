@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MyUserDetailsService extends UserDetailsService {
 
-    UserRegistrationModel createUser(UserRegistrationModel userRegistration);
+    void createUser(UserRegistrationModel userRegistration);
 
     List<UserModel> getAll();
 
@@ -18,7 +18,9 @@ public interface MyUserDetailsService extends UserDetailsService {
 
     UserModel getUserById(Integer id);
 
-    public UserAuthModel findByLogin(String login);
+    UserAuthModel findByUsername(String login);
 
-    public UserAuthModel findByLoginAndPassword(String login, String password);
+    UserAuthModel findByUsernameAndPassword(String login, String password);
+
+    String getUserAuthenticationToken(UserAuthModel userAuthModel);
 }
