@@ -1,0 +1,7 @@
+com\neobis\api\AdminControllerTests.class
+com\neobis\api\UserControllerTests.class
+com\neobis\api\MainControllerTests.class
+com\neobis\api\RegistrationControllerTests.class
+com\neobis\api\CategoryControllerTests.class
+com\neobis\api\BrandControllerTests.class
+com\neobis\api\ProductControllerTests.class
