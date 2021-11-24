@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  service_backend:
+    depends_on:
+      - mysqlbd
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8181:8181"
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqlbd:3306/neobis
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Eldar2002
+    networks:
+      - service_backend
+
+  mysqlbd:
+    container_name: mysqlbd
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: AvtoShop
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Eldar2002
+      MYSQL_ROOT_PASSWORD: Eldar2002
+    networks:
+      - service_backend
+
+networks:
+  service_backend:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
+

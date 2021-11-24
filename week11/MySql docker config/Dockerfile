@@ -1,3 +1,3 @@
 FROM mysql
-ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_ROOT_PASSWORD=Eldar2002
 COPY ./create.sql .
