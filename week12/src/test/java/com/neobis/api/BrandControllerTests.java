@@ -13,14 +13,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AdminControllerTests {
+public class BrandControllerTests {
 
     @Autowired
     MockMvc mockMvc;
 
     @Test
-    void getCheckAdminLink() throws Exception{
-        this.mockMvc.perform(get("/admin"))
+    void getCheckAllBrandsLink() throws Exception{
+        this.mockMvc.perform(get("/all"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("http://localhost/login"));

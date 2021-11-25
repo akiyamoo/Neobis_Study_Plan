@@ -7,22 +7,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.containsString;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AdminControllerTests {
+public class MainControllerTests {
 
     @Autowired
     MockMvc mockMvc;
 
     @Test
-    void getCheckAdminLink() throws Exception{
-        this.mockMvc.perform(get("/admin"))
+    void getPage() throws Exception{
+        this.mockMvc.perform(get("/"))
                 .andDo(print())
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("http://localhost/login"));
+                .andExpect(content().string(containsString("Welcome")))
+                .andExpect(status().isOk());
     }
 }
